@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANEL BY LOAX - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Mengatur font Inter sebagai default untuk keseluruhan body */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Gradient background biru dan ungu untuk tampilan yang menarik */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Biru ke Ungu */
+        }
+        /* Gaya untuk kotak pesan kustom (pengganti alert()) */
+        .message-box {
+            position: fixed; /* Tetap di posisi tertentu di viewport */
+            top: 50%; /* Posisikan di tengah vertikal */
+            left: 50%; /* Posisikan di tengah horizontal */
+            transform: translate(-50%, -50%); /* Penyesuaian untuk penempatan yang tepat di tengah */
+            background-color: white; /* Latar belakang putih */
+            padding: 2rem; /* Padding di sekitar konten */
+            border-radius: 0.75rem; /* Sudut membulat */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek kedalaman */
+            z-index: 1000; /* Pastikan di atas elemen lain */
+            text-align: center; /* Teks rata tengah */
+            opacity: 0; /* Sembunyikan secara default */
+            visibility: hidden; /* Sembunyikan secara default */
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Transisi halus */
+        }
+        .message-box.show {
+            opacity: 1; /* Tampilkan */
+            visibility: visible; /* Jadikan terlihat */
+        }
+        /* Overlay untuk memblokir interaksi dengan elemen di belakang kotak pesan */
+        .message-box-overlay {
+            position: fixed; /* Tetap di posisi tertentu di viewport */
+            top: 0;
+            left: 0;
+            width: 100%; /* Lebar penuh */
+            height: 100%; /* Tinggi penuh */
+            background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+            z-index: 999; /* Di bawah kotak pesan, di atas konten lain */
+            opacity: 0; /* Sembunyikan secara default */
+            visibility: hidden; /* Sembunyikan secara default */
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Transisi halus */
+        }
+        .message-box-overlay.show {
+            opacity: 1; /* Tampilkan */
+            visibility: visible; /* Jadikan terlihat */
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex flex-col items-center justify-center p-4">
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white text-center mb-8 drop-shadow-lg tracking-tight leading-none transform transition-all duration-300 ease-in-out hover:scale-105">
+        PANEL BY LOAX
+    </h1>
+
+    <div id="mainContent" class="w-full max-w-md">
+        <div id="loginSection" class="bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105">
+            <h2 class="text-3xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-700">
+                CUYY LOGIN DAH
+            </h2>
+
+            <form id="loginForm">
+                <div class="mb-6">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">
+                        Nama Pengguna
+                    </label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Masukkan nama pengguna Anda"
+                        class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                        required
+                    >
+                </div>
+                <div class="mb-8">
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
+                        Kata Sandi
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Masukkan kata sandi Anda"
+                        class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200 ease-in-out"
+                        required
+                    >
+                </div>
+                <div class="flex items-center justify-between">
+                    <button
+                        type="submit"
+                        class="w-full bg-gradient-to-r from-blue-600 to-purple-700 hover:from-blue-700 hover:to-purple-800 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                    >
+                        Login
+                    </button>
+                </div>
+                <div class="mt-6 text-center">
+                    <a href="#" class="inline-block align-baseline font-bold text-sm text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out">
+                        Lupa Kata Sandi?
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div id="phoneNumberSection" class="bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl transform transition-all duration-300 hidden">
+            <h2 class="text-3xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-700">
+                Oke masukan nomor kamu di bwah ini
+            </h2>
+
+            <div class="mb-6">
+                <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">
+                    Nomor Telepon
+                </label>
+                <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Contoh: 6281234567890"
+                    class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out"
+                    required
+                >
+            </div>
+            <div class="flex items-center justify-between">
+                <button
+                    id="gassFreePanelBtn"
+                    class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                >
+                    GASS FREE PANEL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageBoxOverlay" class="message-box-overlay"></div>
+    <div id="messageBox" class="message-box">
+        <p id="messageText" class="text-lg font-semibold mb-4"></p>
+        <button id="closeMessageBox" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-200 ease-in-out">
+            OK
+        </button>
+    </div>
+
+    <script>
+        // Mendapatkan referensi elemen-elemen HTML berdasarkan ID
+        const loginSection = document.getElementById('loginSection');
+        const phoneNumberSection = document.getElementById('phoneNumberSection');
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const gassFreePanelBtn = document.getElementById('gassFreePanelBtn');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const closeMessageBoxButton = document.getElementById('closeMessageBox');
+        const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+
+        // Username dan password default yang telah ditentukan
+        const DEFAULT_USERNAME = 'emojibatu';
+        const DEFAULT_PASSWORD = 'batubatu';
+
+        /**
+         * Menampilkan kotak pesan kustom dengan pesan tertentu.
+         * @param {string} message - Pesan yang akan ditampilkan di kotak pesan.
+         */
+        function showMessageBox(message) {
+            messageText.textContent = message; // Atur teks pesan
+            messageBox.classList.add('show'); // Tampilkan kotak pesan
+            messageBoxOverlay.classList.add('show'); // Tampilkan overlay
+        }
+
+        /**
+         * Menyembunyikan kotak pesan kustom.
+         */
+        function hideMessageBox() {
+            messageBox.classList.remove('show'); // Sembunyikan kotak pesan
+            messageBoxOverlay.classList.remove('show'); // Sembunyikan overlay
+        }
+
+        // Event listener untuk tombol 'OK' di kotak pesan, untuk menutupnya
+        closeMessageBoxButton.addEventListener('click', hideMessageBox);
+        // Event listener untuk overlay, agar kotak pesan bisa ditutup dengan klik di luar area pesan
+        messageBoxOverlay.addEventListener('click', hideMessageBox);
+
+        // Event listener untuk submit form login
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah form submit secara default (reload halaman)
+
+            const username = usernameInput.value; // Ambil nilai username dari input
+            const password = passwordInput.value; // Ambil nilai password dari input
+
+            // Cek apakah username dan password sesuai dengan nilai default
+            if (username === DEFAULT_USERNAME && password === DEFAULT_PASSWORD) {
+                // Jika login berhasil:
+                // Sembunyikan bagian login
+                loginSection.classList.add('hidden');
+                // Tampilkan bagian input nomor telepon
+                phoneNumberSection.classList.remove('hidden');
+            } else if (username === DEFAULT_USERNAME && password !== DEFAULT_PASSWORD) {
+                // Jika username benar tapi password salah
+                showMessageBox('salah cok');
+            } else {
+                // Jika username atau password salah
+                showMessageBox('Nama pengguna atau kata sandi salah.');
+            }
+        });
+
+        // Event listener untuk tombol "GASS FREE PANEL"
+        gassFreePanelBtn.addEventListener('click', function() {
+            const phoneNumber = phoneNumberInput.value.trim(); // Ambil nilai nomor telepon dan hapus spasi di awal/akhir
+
+            if (phoneNumber) {
+                // Format nomor telepon untuk link WhatsApp
+                // Asumsi: jika nomor tidak diawali '62' atau '+62', tambahkan '62'
+                let formattedPhoneNumber = phoneNumber;
+                if (!phoneNumber.startsWith('62') && !phoneNumber.startsWith('+62')) {
+                    formattedPhoneNumber = '62' + phoneNumber.replace(/^0/, ''); // Ganti 0 di awal dengan 62
+                } else if (phoneNumber.startsWith('+62')) {
+                    formattedPhoneNumber = phoneNumber.replace(/^\+/, ''); // Hapus '+' jika ada
+                }
+
+                // Pesan WhatsApp yang akan dikirim (sudah di-encode URL)
+                const whatsappMessage = 'Anjir%20kena%20scam%20cokk.';
+                // Buat link WhatsApp
+                const whatsappLink = `https://wa.me/${formattedPhoneNumber}?text=${whatsappMessage}`;
+                
+                // Buka link WhatsApp di tab baru
+                window.open(whatsappLink, '_blank');
+            } else {
+                // Jika input nomor telepon kosong, tampilkan pesan
+                showMessageBox('Mohon masukkan nomor telepon Anda.');
+            }
+        });
+    </script>
+</body>
+  </html>
